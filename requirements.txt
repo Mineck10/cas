@@ -1,0 +1,9 @@
+Django==4.0.3
+#previous version was Django==4.0.3 (found when downloading the project)
+#I was running Django==4.1.7
+#New version (of 2023) is Django==4.2.1
+Pillow
+
+
+#https://www.sourcecodester.com/php/15222/college-attendance-management-system-python-using-django-free-download.html
+#source code link
