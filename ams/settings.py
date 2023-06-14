@@ -26,7 +26,7 @@ SECRET_KEY = '18_y&n^=!$k$ojm43-a0)bxsk3&pc_e-=0f##1g#*#)+6=v)g@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '172.20.10.4']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'attendance.apps.AttendanceConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -78,10 +79,22 @@ WSGI_APPLICATION = 'ams.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+
+       'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'attendance',
+
+        'USER': 'admin',
+
+        'PASSWORD': 'admin',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
+       }
 }
 
 
@@ -130,3 +143,5 @@ STATICFILES_DIRS = (
 )
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
+
+

@@ -3,7 +3,7 @@
     <div class="card card-default rounded-0 shadow ">
         <div class="card-header">
             <div class="d-flex w-100 align-items-center justify-content-between">
-                <h4 class="card-title fw-bold">Class Management</h4>
+                <h4 class="card-title fw-bold">Course Management</h4>
                 <div class="tools">
                     {% if user.profile.user_type == 1 %}
                     <button type="button" class="btn btn-primary rounded-0 bg-gradient btn-sm" id='add_new'><i class="fa fa-plus"></i> Add New</button>
@@ -16,30 +16,31 @@
                 <table class="table table-bordered" id="class-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="20%">
+                        <col width="35%">
+                        <col width="25%">
+                        <col width="10%">
+                        <col width="10%">
                         <col width="15%">
                     </colgroup>
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
-                            <th class="px-2 py-2 text-center">Faculty</th>
-                            <th class="px-2 py-2 text-center">Scool Year</th>
-                            <th class="px-2 py-2 text-center">Level</th>
-                            <th class="px-2 py-2 text-center">Name</th>
+                            <th class="px-2 py-2 text-center">Course Name</th>
+                            <th class="px-2 py-2 text-center">Lecturer Incharge</th>
+                            <th class="px-2 py-2 text-center">Semester</th>
+                            <th class="px-2 py-2 text-center">Department</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for class in classes %}
                         <tr>
-                            <td class="px-2 py-1 align-middle">{{ class.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ class.assigned_faculty.user.first_name }} {{ class.assigned_faculty.user.last_name }}</td>
-                            <td class="px-2 py-1 align-middle">{{ class.school_year }}</td>
-                            <td class="px-2 py-1 align-middle">{{ class.level }}</td>
-                            <td class="px-2 py-1 align-middle">{{ class.name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ course.id }}</td>
+                            <td class="px-2 py-1 align-middle">{{ course.course_name }}-{{ course.course_id }}</td>
+                            <td class="px-2 py-1 align-middle">{{ course.assigned_lecturer.user.first_name }} {{ course.assigned_lecturer.user.last_name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ course.semester }}</td>
+                            <td class="px-2 py-1 align-middle">{{ course.department }}</td>
+                            
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm" href="{% url 'class-page' class.pk %}" title="View">
                                     <i class="fa fa-eye"></i>
@@ -65,13 +66,13 @@
 <script>
     $(function() {
         $('#add_new').click(function() {
-            uni_modal('<i class="fa fa-plus"></i> Add class', '{% url "manage-class-modal" %}', 'modal-md')
+            uni_modal('<i class="fa fa-plus"></i> Add course', '{% url "manage-class-modal" %}', 'modal-md')
         })
         $('.edit-data').click(function() {
-            uni_modal('<i class="fa fa-edit"></i> Edit class', '{% url "manage-class-modal" %}/' + $(this).attr('data-id'), 'modal-md')
+            uni_modal('<i class="fa fa-edit"></i> Edit course', '{% url "manage-class-modal" %}/' + $(this).attr('data-id'), 'modal-md')
         })
         $('.delete-data').click(function() {
-            _conf("Are you sure to delete this class permanently?", "delete_class", [$(this).attr('data-id')])
+            _conf("Are you sure to delete this course permanently?", "delete_class", [$(this).attr('data-id')])
         })
 
         $('#class-list').DataTable({

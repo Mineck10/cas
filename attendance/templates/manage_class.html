@@ -2,35 +2,67 @@
     <form action=" " id="class-form">
         {% csrf_token %}
         <input type="hidden" name="id" value="{{ class.id }}">
+        <div class="form-group mb-3 ">
+            <label for="name" class="control-label">Course Name</label>
+            <input type="text" class="form-control rounded-0" id="name" name="course_name" value="{{ courses.course_name }}" required>
+        </div>
         <div class="form-group mb-3">
-            <label for="assigned_faculty" class="control-label">Faculty</label>
-            <select name="assigned_faculty" id="assigned_faculty" class="form-select rounded-0 select2" required>
-                {% if not class.assigned_faculty %}
-                <option value="" selected></option>
-                {% else %}
-                <option value=""></option>
-                {% endif %}
-                {% for faculty in faculties %}
-                {% if class.assigned_faculty == faculty %}
-                <option value="{{ faculty.id }}" selected>{{ faculty.user.first_name }} {{ faculty.user.last_name }}</option>
-                {% else %}
-                <option value="{{ faculty.id }}">{{ faculty.user.first_name }} {{ faculty.user.last_name }}</option>
-                {% endif %}
+            <label for="course_code" class="control-label">Course Code</label>
+            <input type="text" class="form-control rounded-0" name="course_code" id="course_code" value="{{ course.course_code }}" required="required">
+        </div>
+        <div class="form-group mb-3">
+            <label for="department" class="control-label">Department</label>
+            <select name="department" id="department" class="form-select rounded-0 select2" required>
+                {% for dep in department %}
+                <option value="{{ dep.id }}">{{ dep }}</option>
                 {% endfor %}
             </select>
         </div>
+        
+
+        <div class="form-group mb-3">
+            <label for="assigned_lecturer" class="control-label">Assigned lecturer(s)</label>
+            <div class="checkbox-list">
+                {% for lecturer in lecturers %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="{{ lecturer.department }}" name="lecturers[]" value="{{ lecturer.department }}">
+                    <label class="form-check-label" for="{{ lecturer.department }}">{{ lecturer.department }}</label>
+                  </div>
+                  {% endfor %}
+            </div>
+        </div>  
+
+        
+
         <div class="form-group mb-3 ">
-            <label for="school_year" class="control-label">School Year</label>
-            <input type="text" class="form-control rounded-0" id="school_year" name="school_year" value="{{ class.school_year }}" required>
+            <label for="school_year" class="control-label">Semester</label>
+            <input type="number" class="form-control rounded-0" id="semester" name="semester" value="{{ courses.semester }}" required>
         </div>
-        <div class="form-group mb-3 ">
+
+        <div class="form-group mb-3">
+            <label for="day" class="control-label">Day</label>
+            <select name="day" id="day" class="form-select rounded-0 " required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+            </select>
+        </div>
+        
+        <div class="form-group mb-3">
+            <label for="start_time" class="control-label">From</label>
+            <input name="start_time" type="time" id="start_time" class="form-select rounded-0 " required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="end_time" class="control-label">To</label>
+            <input name="end_time" type="time" id="end_time" class="form-select rounded-0 " required>
+        </div>
+        <!--<div class="form-group mb-3 ">
             <label for="level" class="control-label">Level</label>
             <input type="text" class="form-control rounded-0" id="level" name="level" value="{{ class.level }}" required>
-        </div>
-        <div class="form-group mb-3 ">
-            <label for="name" class="control-label">Class Name</label>
-            <input type="text" class="form-control rounded-0" id="name" name="name" value="{{ class.name }}" required>
-        </div>
+        </div>-->
+       
     </form>
 </div>
 <script>
@@ -42,6 +74,59 @@
                 dropdownParent: $('#uni_modal')
             })
         })
+
+
+        //ADDED CODE BELOW 
+
+          // Function to update the lecturer options based on the selected department
+          function updateLecturers() {
+            var departmentId = $('#department-select').val();
+            var lecturerSelect = $('#lecturer-select');
+            lecturerSelect.empty(); // Clear the current options
+
+            // Make an AJAX request to fetch the lecturers for the selected department
+            $.ajax({
+                url: "{% url 'save-class' %}", // Replace with the appropriate URL
+                data: { department_id: departmentId },
+                dataType: 'json',
+                success: function(data) {
+                    // Populate the lecturer options based on the response
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, lecturer) {
+                            lecturerSelect.append($('<option>', {
+                                value: lecturer.id,
+                                text: lecturer.name
+                            }));
+                        });
+                    } else {
+                        lecturerSelect.append($('<option>', {
+                            value: '',
+                            text: 'No lecturers available'
+                        }));
+                    }
+                },
+                error: function() {
+                    lecturerSelect.append($('<option>', {
+                        value: '',
+                        text: 'Error retrieving lecturers'
+                    }));
+                }
+            });
+        }
+
+        // Attach change event listener to the department select element
+        $('#department-select').change(function() {
+            updateLecturers();
+        });
+
+        // Initial population of lecturer options based on the selected department (if any)
+        updateLecturers();
+
+
+        //ADDED CODE ABOVE 
+
+
+
         $('#class-form').submit(function(e) {
             e.preventDefault();
             var _this = $(this)
@@ -87,4 +172,11 @@
             })
         })
     })
+</script>
+
+
+<script>
+    $(function() {
+      
+    });
 </script>

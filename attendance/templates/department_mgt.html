@@ -14,8 +14,8 @@
                 <table class="table table-bordered" id="department-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="25%">
                         <col width="40%">
+                        <col width="25%">
                         <col width="15%">
                         <col width="15%">
                     </colgroup>
@@ -23,7 +23,7 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Name</th>
-                            <th class="px-2 py-2 text-center">Description</th>
+                            <th class="px-2 py-2 text-center">Shortform</th>
                             <th class="px-2 py-2 text-center">Status</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
@@ -32,8 +32,8 @@
                         {% for department in departments %}
                         <tr>
                             <td class="px-2 py-1 align-middle">{{ department.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ department.name }}</td>
                             <td class="px-2 py-1 align-middle">{{ department.description }}</td>
+                            <td class="px-2 py-1 align-middle">{{ department.name }}</td>
                             <td class="px-2 py-1 align-middle text-center">
                                 {% if department.status == 1 %}
                                 <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}

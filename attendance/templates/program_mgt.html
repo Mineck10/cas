@@ -11,12 +11,12 @@
         </div>
         <div class="card-body">
             <div class="container-fluid">
-                <table class="table table-bordered" id="course-list">
+                <table class="table table-bordered" id="program-list">
                     <colgroup>
                         <col width="5%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="30%">
+                        <col width="40%">
+                        <col width="15%">
+                        <col width="15%">
                         <col width="10%">
                         <col width="15%">
                     </colgroup>
@@ -24,29 +24,30 @@
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
                             <th class="px-2 py-2 text-center">Program Name</th>
+                            <th class="px-2 py-2 text-center">Program Shortform</th>
                             <th class="px-2 py-2 text-center">Department</th>
-                            <th class="px-2 py-2 text-center">Description</th>
                             <th class="px-2 py-2 text-center">Status</th>
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for course in courses %}
+                        {% for program in programs %}
                         <tr>
-                            <td class="px-2 py-1 align-middle">{{ course.id }}</td>
-                            <td class="px-2 py-1 align-middle">{{ course.name }}</td>
-                            <td class="px-2 py-1 align-middle">{{ course.department }}</td>
-                            <td class="px-2 py-1 align-middle">{{ course.description }}</td>
+                            <td class="px-2 py-1 align-middle">{{ program.id }}</td>
+                            <td class="px-2 py-1 align-middle">{{ program.description }}</td>
+                            <td class="px-2 py-1 align-middle">{{ program.name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ program.department }}</td>
+                            
                             <td class="px-2 py-1 align-middle text-center">
-                                {% if course.status == 1 %}
+                                {% if program.status == 1 %}
                                 <span class="badge bg-primary rounded-pill px-3">Active</span> {% else %}
                                 <span class="badge bg-secondary rounded-pill px-3">Inactive</span> {% endif %}
                             </td>
                             <td class="px-2 py-1 align-middle text-center">
-                                <a class="btn btn-outline-primary btn-sm edit-data" href="javascript:void(0)" data-id="{{ course.pk }}" title="Edit">
+                                <a class="btn btn-outline-primary btn-sm edit-data" href="javascript:void(0)" data-id="{{ program.pk }}" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <button class="btn btn-outline-danger btn-sm delete-data" type="button" data-id="{{ course.pk }}" title="Delete">
+                                <button class="btn btn-outline-danger btn-sm delete-data" type="button" data-id="{{ program.pk }}" title="Delete">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </td>
@@ -62,16 +63,16 @@
 <script>
     $(function() {
         $('#add_new').click(function() {
-            uni_modal('<i class="fa fa-plus"></i> Add Course', '{% url "manage-course-modal" %}', 'modal-md')
+            uni_modal('<i class="fa fa-plus"></i> Add Program', '{% url "manage-course-modal" %}', 'modal-md')
         })
         $('.edit-data').click(function() {
-            uni_modal('<i class="fa fa-edit"></i> Edit Course', '{% url "manage-course-modal" %}/' + $(this).attr('data-id'), 'modal-md')
+            uni_modal('<i class="fa fa-edit"></i> Edit Program', '{% url "manage-course-modal" %}/' + $(this).attr('data-id'), 'modal-md')
         })
         $('.delete-data').click(function() {
-            _conf("Are you sure to delete this course permanently?", "delete_course", [$(this).attr('data-id')])
+            _conf("Are you sure to delete this program permanently?", "delete_course", [$(this).attr('data-id')])
         })
 
-        $('#course-list').DataTable({
+        $('#program-list').DataTable({
             columnDefs: [{
                 orderable: false,
                 targets: 4
@@ -85,7 +86,7 @@
         })
     })
 
-    function delete_course($id) {
+    function delete_program($id) {
         start_loader();
         var _this = $(this)
         $('.err-msg').remove();
@@ -93,7 +94,7 @@
         el.addClass("alert alert-danger err-msg")
         el.hide()
         $.ajax({
-            url: '{% url "delete-course" %}',
+            url: '{% url "delete-program" %}',
             headers: {
                 'X-CSRFToken': "{{csrf_token}}"
             },

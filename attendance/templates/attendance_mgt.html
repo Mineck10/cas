@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex w-100">
-                                    <div class="col-auto pe-2 text-muted">School Year:</div>
+                                    <div class="col-auto pe-2 text-muted">Semester:</div>
                                     <div class="col-auto flex-shrink-1 flex-grow-1">
                                         <p class="m-0 fw-bold">{{ class.school_year }}</p>
                                     </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="d-flex w-100">
-                                    <div class="col-auto pe-2 text-muted">Level:</div>
+                                    <div class="col-auto pe-2 text-muted">Programs:</div>
                                     <div class="col-auto flex-shrink-1 flex-grow-1">
                                         <p class="m-0 fw-bold">{{ class.level }}</p>
                                     </div>
@@ -97,7 +97,7 @@
                                 <tr class="">
                                     <td class="text-center">{{ forloop.counter }}</td>
                                     <td>{{ student.data.student_code }}</td>
-                                    <td>{{ student.data.first_name }} {{ student.data.middle_name }} {{ student.data.last_name }}</td>
+                                    <td>{{ student.data.last_name }}, {{ student.data.first_name }} {{ student.data.middle_name }} </td>
                                     <td class="text-center">
                                         <input type="hidden" name="student[]" value="{{ student.data.pk }}">
                                         <input type="radio" class="btn-check" name="type[{{ student.data.pk }}]" value="1" id="btnradio-{{student.data.pk}}" {% if student.type == '1' %} checked="checked" {% endif %} autocomplete="off" required>

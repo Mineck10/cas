@@ -37,33 +37,9 @@
                 </div> 
                 -->
 
+              
                 <div class="form-group mb-3">
-                    <label for="contact" class="control-label">Contact</label>
-                    <input type="text" class="form-control rounded-0" name="contact" id="contact" value="{{ faculty.contact }}" required="required">
-                </div>
-                <div class="form-group mb-3">
-                    
-                    <!--
-                        <label for="address" class="control-label">Address</label>
-                        <textarea rows="3" class="form-control rounded-0" name="address" id="address" required="required">{{ faculty.address }}</textarea>
-                    -->
-
-                    <label for="courses" class="control-label">Courses</label>
-                    <div rows="3" class="checkbox-list">
-                        {% for course in faculty.department %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="courses" id="{{ course }}" value="{{ course }}">
-                            <label class="form-check-label" for="{{ course }}">{{ course }}</label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    
-                    
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group mb-3">
-                    <label for="department" class="control-label">Deparmtent</label>
+                    <label for="department" class="control-label">Department</label>
                     <select name="department" id="department" class="form-select rounded-0 select2" required>
                         {% if not faculty.department %}
                         <option disabled selected></option>
@@ -80,6 +56,44 @@
                         {% endfor %}
                     </select>
                 </div>
+                <div class="form-group mb-3">
+                    
+                    <!--
+                        <label for="address" class="control-label">Address</label>
+                        <textarea rows="3" class="form-control rounded-0" name="address" id="address" required="required">{{ faculty.address }}</textarea>
+                    -->
+
+                    <label for="courses" class="control-label">Courses</label>
+                    <div class="checkbox-list">
+                        <!--course = [for course in faculty.department]-->
+                        {% for x in courses %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="courses[]" id="{{ x.course_name }}" value="{{ x.course_name }}">
+                            <label class="form-check-label" for="{{ x.course_name }}">{{ x.course_name }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="bimetric" class="control-label">Biometric</label>
+                    <div class="form-check border border-secondary ">
+                        {% if matching_found == 1 %}
+                        <input type="checkbox" class="form-check-input ml-3" name="biometric" id="biometric" checked disabled>
+                        {% else %}
+                        <input type="checkbox" class="form-check-input ml-3" name="biometric" id="biometric" disabled>
+                        {% endif %}
+                        <label class="form-check-label" for="bimetric">Status</label>
+                    </div>                        
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="contact" class="control-label">Contact</label>
+                    <input type="text" class="form-control rounded-0" name="contact" id="contact" value="{{ faculty.contact }}" required="required">
+                </div>
+
+                
                 <div class="form-group mb-3">
                     <label for="email" class="control-label">Email</label>
                     <input type="email" class="form-control rounded-0" name="email" id="email" value="{{ faculty.user.email }}" required="required">

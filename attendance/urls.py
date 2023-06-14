@@ -20,11 +20,11 @@ urlpatterns = [
     path(r'manage_department/<int:pk>',views.manage_department,name='edit-department-modal'),
     path('save_department',views.save_department,name='save-department'),
     path('delete_department',views.delete_department,name='delete-department'),
-    path('course',views.course,name='course-page'),
-    path('manage_course',views.manage_course,name='manage-course-modal'),
-    path(r'manage_course/<int:pk>',views.manage_course,name='edit-course-modal'),
-    path('save_course',views.save_course,name='save-course'),
-    path('delete_course',views.delete_course,name='delete-course'),
+    path('program',views.program,name='course-page'),
+    path('manage_program',views.manage_program,name='manage-course-modal'),
+    path(r'manage_program/<int:pk>',views.manage_program,name='edit-course-modal'),
+    path('save_program',views.save_program,name='save-course'),
+    path('delete_program',views.delete_program,name='delete-program'),
     path('faculty',views.faculty,name='faculty-page'),
     path('manage_faculty',views.manage_faculty,name='manage-faculty-modal'),
     path(r'view_faculty/<int:pk>',views.view_faculty,name='view-faculty-modal'),
@@ -50,4 +50,6 @@ urlpatterns = [
     path(r'attendance/<int:classPK>',views.attendance,name='attendance-page'),
     path(r'attendance/<int:classPK>/<str:date>',views.attendance,name='attendance-page-date'),
     path('save_attendance',views.save_attendance,name='save-attendance'),
+    path('data_from_PI', views.data_from_PI, name='data-from-PI'),
+
 ]

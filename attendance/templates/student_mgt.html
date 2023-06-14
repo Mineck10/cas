@@ -23,9 +23,9 @@
                     <thead>
                         <tr class="bg-gradient bg-primary bg-opacity-50 text-light">
                             <th class="px-2 py-2 text-center">#</th>
-                            <th class="px-2 py-2 text-center">Code</th>
-                            <th class="px-2 py-2 text-center">Course</th>
                             <th class="px-2 py-2 text-center">Name</th>
+                            <th class="px-2 py-2 text-center">Registration Number</th>
+                            <th class="px-2 py-2 text-center">Program</th>                            
                             <th class="px-2 py-2 text-center">Action</th>
                         </tr>
                     </thead>
@@ -33,9 +33,9 @@
                         {% for student in students %}
                         <tr>
                             <td class="px-2 py-1 align-middle">{{ student.id }}</td>
+                            <td class="px-2 py-1 align-middle">{{ student.last_name }}, {{ student.first_name }} {{ student.middle_name }} </td>
                             <td class="px-2 py-1 align-middle">{{ student.student_code }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.course.department }}-{{ student.course }}</td>
-                            <td class="px-2 py-1 align-middle">{{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}</td>
+                            <td class="px-2 py-1 align-middle">{{ student.program }}-({{ student.program.department.name }})</td>                            
                             <td class="px-2 py-1 align-middle text-center">
                                 <a class="btn btn-outline-info btn-sm view-data" href="javascript:void(0)" data-url="{% url 'view-student-modal' student.pk %}" title="View Details">
                                     <i class="fa fa-eye"></i>
